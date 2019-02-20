@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""IS 211 - Assignment 3"""
+"""IS 211 - Assignment 4"""
 
 
 # Import the timeit module
@@ -12,6 +12,9 @@ import random
 # Import for logging
 import logging
 import logging.handlers
+# Import custom function to generate lists
+import list_generator
+
 
 def main():
     """Main function that runs at start of program.
@@ -76,8 +79,8 @@ def main():
             print "Starting search {} ({} of {})...".format(
                                              list_size,count,len(list_size_all))
             # Sum up search times
-            total_search_time += searchTimeAvg(
-                              "sequential_search", 100,listGenerator(list_size))
+            total_search_time += findTimeAvg(
+                              "sequential_search", 100,list_generator.generateList(list_size))
             count += 1
 
         avg_search_time = total_search_time / len(list_size_all)
@@ -94,8 +97,8 @@ def main():
             print "Starting search {} ({} of {})...".format(
                                              list_size,count,len(list_size_all))
             # Sum up search times
-            total_search_time += searchTimeAvg(
-              "ordered_sequential_search", 100,sorted(listGenerator(list_size)))
+            total_search_time += findTimeAvg(
+              "ordered_sequential_search", 100,sorted(list_generator.generateList(list_size)))
             count += 1
 
         avg_search_time = total_search_time / len(list_size_all)
@@ -112,8 +115,8 @@ def main():
             print "Starting search {} ({} of {})...".format(
                                              list_size,count,len(list_size_all))
             # Sum up search times
-            total_search_time += searchTimeAvg(
-              "binary_search_iterative", 100,sorted(listGenerator(list_size)))
+            total_search_time += findTimeAvg(
+              "binary_search_iterative", 100,sorted(list_generator.generateList(list_size)))
             count += 1
 
         avg_search_time = total_search_time / len(list_size_all)
@@ -130,8 +133,8 @@ def main():
             print "Starting search {} ({} of {})...".format(
                                              list_size,count,len(list_size_all))
             # Sum up search times
-            total_search_time += searchTimeAvg(
-              "binary_search_recursive", 100,sorted(listGenerator(list_size)))
+            total_search_time += findTimeAvg(
+              "binary_search_recursive", 100,sorted(list_generator.generateList(list_size)))
             count += 1
 
         avg_search_time = total_search_time / len(list_size_all)
@@ -148,28 +151,7 @@ def main():
         main()
 
 
-# list generator
-def listGenerator(num_of_time):
-    """Generate list
-
-    Args:
-        num_of_time (int): The number of times to add a new input to list
-
-    Returns:
-        Returns new list
-
-    """
-    new_list = []
-
-    some_random = random.randint(3,57)
-
-    for i in range(num_of_time):
-        new_list.append(random.randint(random.randint(some_random,some_random*2), num_of_time+1))
-
-    return new_list
-
-
-def searchTimeAvg(search_type_name, num_of_list, generated_list):
+def findTimeAvg(search_type_name, num_of_list, generated_list):
     """Finds the search time for the given search algo
 
     Args:
