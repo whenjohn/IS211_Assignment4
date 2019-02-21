@@ -3,10 +3,8 @@
 """IS 211 - Assignment 4"""
 
 
-# Import the timeit module
-import timeit
-# Import the Timer class defined in the module
-from timeit import Timer
+# Import the time module
+import time
 # Import for logging
 import logging
 import logging.handlers
@@ -19,7 +17,8 @@ def main():
     """Main function that runs at start of program.
 
     Attributes:
-        list_size_all (list): Max inputs used to generate lists
+        list_size_all (list): Max elements of a list
+        num_of_lists (int): The number of lists per search function
 
     Returns:
         User promted to enters info. Program will perform action and return
@@ -36,8 +35,8 @@ def main():
         Please enter 1 - 4:
         Python Sort took  0.0011004 seconds to run, on average
     """
-#    list_size_all = [500,1000,10000]
-    list_size_all = [100]
+    list_size_all = [500,1000,10000]
+    num_of_lists = 100
 
     # Set up logger named assignment2 with output level
     my_logger = logging.getLogger('search_compare')
@@ -50,7 +49,7 @@ def main():
     # Begin asking for input from user
     while True:
         try:
-            print "Find the avgerage time for sort:"
+            print "Find the average sort time:"
             print "1 - Insertion Sort"
             print "2 - Shell Sort"
             print "3 - Python Sort"
@@ -68,60 +67,42 @@ def main():
 
     # Process selection and calculate results
     if user_input == 1:
-        total_sort_time = 0
-        count = 1
+        total_time = 0
         # step through each list size inputs
+        print "\n"
         for list_size in list_size_all:
-            print "Starting sort {} ({} of {})...".format(
-                                             list_size,count,len(list_size_all))
-            # Sum up search times
-            #note the second arg (1) is the number of lists for this input size
-            total_sort_time += findTimeAvg(
-                     "insertion_sort", 1,list_generator.generateList(list_size))
-            count += 1
-
-        avg_sort_time = total_sort_time / len(list_size_all)
-
-        print "\nInsertion Sort took %10.7f seconds to run, on average\n" % avg_sort_time
-
+            for i in range (num_of_lists):
+                func_return = insertion_sort(list_generator.generateList(list_size))
+                total_time += func_return[1]
+            avg_time = total_time / num_of_lists
+            print "Insertion Sort for",list_size,"elements took%10.7f seconds to run, on average" % avg_time
+        print "\n"
         main()
 
     elif user_input == 2:
-        total_sort_time = 0
-        count = 1
+        total_time = 0
         # step through each list size inputs
+        print "\n"
         for list_size in list_size_all:
-            print "Starting sort {} ({} of {})...".format(
-                                             list_size,count,len(list_size_all))
-            # Sum up search times
-            # Note the second arg (1) is the number of lists for this input size
-            total_sort_time += findTimeAvg(
-                         "shell_sort", 1,list_generator.generateList(list_size))
-            count += 1
-
-        avg_sort_time = total_sort_time / len(list_size_all)
-
-        print "\nShell Sort took %10.7f seconds to run, on average\n" % avg_sort_time
-
+            for i in range (num_of_lists):
+                func_return = shell_sort(list_generator.generateList(list_size))
+                total_time += func_return[1]
+            avg_time = total_time / num_of_lists
+            print "Shell Sort for",list_size,"elements took%10.7f seconds to run, on average" % avg_time
+        print "\n"
         main()
 
     elif user_input == 3:
-        total_sort_time = 0
-        count = 1
+        total_time = 0
         # step through each list size inputs
+        print "\n"
         for list_size in list_size_all:
-            print "Starting sort {} ({} of {})...".format(
-                                             list_size,count,len(list_size_all))
-            # Sum up search times
-            # Note the second arg (1) is the number of lists for this input size
-            total_sort_time += findTimeAvg(
-                        "python_sort", 1,list_generator.generateList(list_size))
-            count += 1
-
-        avg_sort_time = total_sort_time / len(list_size_all)
-
-        print "\nPython Sort took %10.7f seconds to run, on average\n" % avg_sort_time
-
+            for i in range (num_of_lists):
+                func_return = python_sort(list_generator.generateList(list_size))
+                total_time += func_return[1]
+            avg_time = total_time / num_of_lists
+            print "Python Sort for",list_size,"elements took%10.7f seconds to run, on average" % avg_time
+        print "\n"
         main()
 
     elif user_input == 0:
@@ -147,38 +128,6 @@ def main():
         main()
 
 
-def findTimeAvg(sort_type_name, num_of_list, generated_list):
-    """Finds the search time for the given search algo
-
-    Args:
-        sort_type_name (string): The number of times to add a new input to list
-        num_of_list (int): The number of times to run timeit
-        generated_list(list): List to search through
-
-    Attributes:
-        timer_string (string): String used by timeit.timer
-        timerit_num (int): Number of test runned by timeit
-        timeit_total (int): sum of the the timeit
-
-    Return:
-        avgerage of total time
-
-    """
-
-    timer_string = "{}({})".format(sort_type_name, generated_list)
-    timerit_num = 1
-    timeit_total = 0
-
-    # preapre timer obj to benchmark search
-    t1 = Timer(timer_string, "from __main__ import {}".format(sort_type_name))
-
-    # Loop and sum the time it took to execute search
-    for i in range (num_of_list):
-        timeit_total +=  t1.timeit(number=timerit_num)
-
-    return timeit_total / num_of_list
-
-
 def insertion_sort(a_list):
     """Insertion Sort Algorithm.
 
@@ -188,10 +137,13 @@ def insertion_sort(a_list):
     Attributes:
         current_value (int): Container for selected postion. Move down line.
         postion (int): Cursor position in list
+        start & finish (time): start and stop time of the function
+
     Return:
         a_list(list): sorted list
 
     """
+    start = time.time()
     for index in range(1, len(a_list)):
     	current_value = a_list[index]
     	position = index
@@ -202,7 +154,8 @@ def insertion_sort(a_list):
 
     	a_list[position] = current_value # when find a place for value
 
-    return a_list
+    finish = time.time()
+    return a_list, finish-start
 
 
 def shell_sort(a_list):
@@ -213,11 +166,13 @@ def shell_sort(a_list):
 
     Attributes:
         sublist_count (int): Split list in half
+        start & finish (time): start and stop time of the function
 
     Return:
         a_list(list): sorted list
 
     """
+    start = time.time()
     sublist_count = len(a_list) // 2
 
     while sublist_count > 0:
@@ -228,7 +183,8 @@ def shell_sort(a_list):
         # Each time apply gap_insertion_sort logic
     	sublist_count = sublist_count // 2
 
-    return a_list
+    finish = time.time()
+    return a_list, finish-start
 
 def gap_insertion_sort(a_list, start, gap):
     """Part of Shell Sort Algorithm. This is the insertion portion
@@ -237,9 +193,11 @@ def gap_insertion_sort(a_list, start, gap):
         a_list(list): List to search through
         start(int): the start position
         gap(int): the size of the space between the search values
+
     Attributes:
         current_value (int): Current value at current cursor
         position (int): the incriement
+
     Return:
         a_list(list): sorted list
 
@@ -264,12 +222,15 @@ def python_sort(a_list):
 
     Args:
         a_list(list): List to search through
+        start & finish (time): start and stop time of the function
 
     Return:
         a_list(list): sorted list
 
     """
-    return sorted(a_list)
+    start = time.time()
+    finish = time.time()
+    return sorted(a_list), finish-start
 
 
 # Run main if file direcrly executed
