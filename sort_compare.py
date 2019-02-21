@@ -17,7 +17,7 @@ def main():
     """Main function that runs at start of program.
 
     Attributes:
-        list_size_all (list): Max elements of a list
+        element_size_all (list): Max elements of a list
         num_of_lists (int): The number of lists per search function
 
     Returns:
@@ -35,7 +35,7 @@ def main():
         Please enter 1 - 4:
         Python Sort took  0.0011004 seconds to run, on average
     """
-    list_size_all = [500,1000,10000]
+    element_size_all = [500,1000,10000]
     num_of_lists = 100
 
     # Set up logger named assignment2 with output level
@@ -70,12 +70,12 @@ def main():
         total_time = 0
         # step through each list size inputs
         print "\n"
-        for list_size in list_size_all:
+        for element_size in element_size_all:
             for i in range (num_of_lists):
-                func_return = insertion_sort(list_generator.generateList(list_size))
+                func_return = insertion_sort(list_generator.generateList(element_size,2))
                 total_time += func_return[1]
             avg_time = total_time / num_of_lists
-            print "Insertion Sort for",list_size,"elements took%10.7f seconds to run, on average" % avg_time
+            print "Insertion Sort for",element_size,"elements took%10.7f seconds to run, on average" % avg_time
         print "\n"
         main()
 
@@ -83,12 +83,12 @@ def main():
         total_time = 0
         # step through each list size inputs
         print "\n"
-        for list_size in list_size_all:
+        for element_size in element_size_all:
             for i in range (num_of_lists):
-                func_return = shell_sort(list_generator.generateList(list_size))
+                func_return = shell_sort(list_generator.generateList(element_size,2))
                 total_time += func_return[1]
             avg_time = total_time / num_of_lists
-            print "Shell Sort for",list_size,"elements took%10.7f seconds to run, on average" % avg_time
+            print "Shell Sort for",element_size,"elements took%10.7f seconds to run, on average" % avg_time
         print "\n"
         main()
 
@@ -96,12 +96,12 @@ def main():
         total_time = 0
         # step through each list size inputs
         print "\n"
-        for list_size in list_size_all:
+        for element_size in element_size_all:
             for i in range (num_of_lists):
-                func_return = python_sort(list_generator.generateList(list_size))
+                func_return = python_sort(list_generator.generateList(element_size,2))
                 total_time += func_return[1]
             avg_time = total_time / num_of_lists
-            print "Python Sort for",list_size,"elements took%10.7f seconds to run, on average" % avg_time
+            print "Python Sort for",element_size,"elements took%10.7f seconds to run, on average" % avg_time
         print "\n"
         main()
 
@@ -109,14 +109,14 @@ def main():
         total_sort_time = 0
         count = 1
         # step through each list size inputs
-        for list_size in list_size_all:
+        for element_size in element_size_all:
             print "SECRET"
 
-            usorted = list_generator.generateList(list_size)
+            usorted = list_generator.generateList(element_size)
 
             print "Unsorted: {}\n\n".format(usorted)
             print "Sorted: {}\n\n".format(python_sort(
-                                        list_generator.generateList(list_size)))
+                                        list_generator.generateList(element_size,2)))
             count += 1
         main()
 

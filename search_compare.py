@@ -18,7 +18,7 @@ def main():
 
 
     Attributes:
-        list_size_all (list): Max elements of a list
+        element_size_all (list): Max elements of a list
         num_of_lists (int): The number of lists per search function
 
     Returns:
@@ -37,7 +37,7 @@ def main():
         Please enter 1 - 5:
         Binary Search (Recursive) took  0.0004027 seconds to run, on average
     """
-    list_size_all = [500,1000,10000]
+    element_size_all = [500,1000,10000]
     num_of_lists = 100
 
     # Set up logger named assignment2 with output level
@@ -74,13 +74,13 @@ def main():
         total_time = 0
         # step through each list size inputs
         print "\n"
-        for list_size in list_size_all:
+        for element_size in element_size_all:
             for i in range (num_of_lists):
-                func_return = sequential_search(list_generator.generateList(list_size), -1)
+                func_return = sequential_search(list_generator.generateList(element_size,3), -1)
                 #print func_return
                 total_time += func_return[1]
             avg_time = total_time / num_of_lists
-            print "Sequential Search for",list_size,"elements took%10.7f seconds to run, on average" % avg_time
+            print "Sequential Search for",element_size,"elements took%10.7f seconds to run, on average" % avg_time
         print "\n"
         main()
 
@@ -88,13 +88,13 @@ def main():
         total_time = 0
         # step through each list size inputs
         print "\n"
-        for list_size in list_size_all:
+        for element_size in element_size_all:
             for i in range (num_of_lists):
-                func_return = ordered_sequential_search(sorted(list_generator.generateList(list_size)), -1)
+                func_return = ordered_sequential_search(list_generator.generateList(element_size,1), -1)
                 #print func_return
                 total_time += func_return[1]
             avg_time = total_time / num_of_lists
-            print "Sequential Search (Ordered) for",list_size,"elements took%10.7f seconds to run, on average" % avg_time
+            print "Sequential Search (Ordered) for",element_size,"elements took%10.7f seconds to run, on average" % avg_time
         print "\n"
         main()
 
@@ -103,13 +103,13 @@ def main():
         total_time = 0
         # step through each list size inputs
         print "\n"
-        for list_size in list_size_all:
+        for element_size in element_size_all:
             for i in range (num_of_lists):
-                func_return = binary_search_iterative(sorted(list_generator.generateList(list_size)), -1)
+                func_return = binary_search_iterative(list_generator.generateList(element_size,1), -1)
                 #print func_return
                 total_time += func_return[1]
             avg_time = total_time / num_of_lists
-            print "Binary Search (Iterative) for",list_size,"elements took%10.7f seconds to run, on average" % avg_time
+            print "Binary Search (Iterative) for",element_size,"elements took%10.7f seconds to run, on average" % avg_time
         print "\n"
         main()
 
@@ -117,13 +117,13 @@ def main():
         total_time = 0
         # step through each list size inputs
         print "\n"
-        for list_size in list_size_all:
+        for element_size in element_size_all:
             for i in range (num_of_lists):
-                func_return = binary_search_recursive(sorted(list_generator.generateList(list_size)), -1)
+                func_return = binary_search_recursive(list_generator.generateList(element_size,1), -1)
                 #print func_return
                 total_time += func_return[1]
             avg_time = total_time / num_of_lists
-            print "Binary Search (Recursive) for",list_size,"elements took%10.7f seconds to run, on average" % avg_time
+            print "Binary Search (Recursive) for",element_size,"elements took%10.7f seconds to run, on average" % avg_time
         print "\n"
         main()
 
