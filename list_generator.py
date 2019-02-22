@@ -21,14 +21,17 @@ def generateList(num_of_elements, case_scenario):
 
     list_full = range(num_of_elements)
 
-    list_first_half = list_full[:(half_num_of_elements)]
-    list_second_half = list_full[(half_num_of_elements):]
-
     if case_scenario == 1:
         return list_full
-    if case_scenario == 2:
+
+    elif case_scenario == 2:
+        list_first_half = list_full[:(half_num_of_elements)]
+        list_second_half = list_full[(half_num_of_elements):]
         random.shuffle(list_second_half)
         return list_first_half + list_second_half
-    if case_scenario == 3:
+
+    elif case_scenario == 3:
         random.shuffle(list_full)
         return list_full
+
+print generateList(10, 3)
